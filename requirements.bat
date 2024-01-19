@@ -4,7 +4,7 @@
 :start
 cls
 
-pip install pycrypto
+pip install pycryptodome
 pip install console-menu
 
 pause
