@@ -2,9 +2,10 @@ import math
 
 
 def encode():
+    keyname = input("Prefix of '-Public.key' file?\n")
     message = input(f"Enter message.\nMessages of a certain length will be impossible to decode. If you must send a large message, break it up.\n")
     encode_two = int.from_bytes(message.encode('utf-8'), byteorder='big', signed=False)
-    with open('public.key', "r") as f:
+    with open(f'{keyname}-public.key', "r") as f:
         content = f.read()
         keymod, publick = content.split(",")
     encoded = pow(encode_two, int(publick), int(keymod), )
@@ -16,10 +17,11 @@ def encode():
 
 
 def decode():
+    keyname = input("Prefix of '-Private.key' file?\n")
     encodedfile = input(f"Enter encoded file name as seen in /decoded/, including extension.\n")
     with open(f"decode\{encodedfile}", "r") as f:
         message = f.read()
-    with open('private.key', "r") as f:
+    with open(f'{keyname}-private.key', "r") as f:
         content = f.read()
         keymod, privatek = content.split(",")
     decode_two = pow(int(message), int(privatek), int(keymod), )
