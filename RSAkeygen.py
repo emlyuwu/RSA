@@ -2,21 +2,18 @@ from Crypto.Util import number
 
 
 def generate_keys():
-    garbage = number.getRandomInteger(20)
-    if int(input(f"Enter the following string to verify key overwrite.\n{garbage}\n")) != garbage:
-        print("Verification failed.")
-        return 0
-    else:
-        global publick
-        global privatek
-        global keymod
-        blength = 2048
-        p = number.getPrime(blength)
-        q = number.getPrime(blength)
-        keymod = p * q
-        phi_n = (p - 1) * (q - 1)
-        publick = 65537
-        privatek = pow(publick, -1, phi_n)
+    global keyname
+    keyname = input("What should the keys be named?\n")
+    global publick
+    global privatek
+    global keymod
+    blength = 2048
+    p = number.getPrime(blength)
+    q = number.getPrime(blength)
+    keymod = p * q
+    phi_n = (p - 1) * (q - 1)
+    publick = 65537
+    privatek = pow(publick, -1, phi_n)
 
 
 def print_keys():
@@ -26,10 +23,10 @@ def print_keys():
 
 
 def write_keys():
-    with open('public.key', 'w') as file:
+    with open(f'{keyname}-public.key', 'w') as file:
         file.write(f"{keymod},{publick}")
         file.close()
-    with open('private.key', 'w') as file:
+    with open(f'{keyname}-private.key', 'w') as file:
         file.write(f"{keymod},{privatek}")
         file.close()
 
