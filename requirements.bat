@@ -4,7 +4,7 @@
 :start
 cls
 
-pip install crypto
+pip install pycrypto
 pip install console-menu
 
 pause
