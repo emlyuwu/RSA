@@ -2,17 +2,21 @@ from Crypto.Util import number
 
 
 def generate_keys():
-
-    global publick
-    global privatek
-    global keymod
-    blength = 2048
-    p = number.getPrime(blength)
-    q = number.getPrime(blength)
-    keymod = p * q
-    phi_n = (p - 1) * (q - 1)
-    publick = 65537
-    privatek = pow(publick, -1, phi_n)
+    garbage = number.getRandomInteger(20)
+    if int(input(f"Enter the following string to verify key overwrite.\n{garbage}\n")) != garbage:
+        print("Verification failed.")
+        return 0
+    else:
+        global publick
+        global privatek
+        global keymod
+        blength = 2048
+        p = number.getPrime(blength)
+        q = number.getPrime(blength)
+        keymod = p * q
+        phi_n = (p - 1) * (q - 1)
+        publick = 65537
+        privatek = pow(publick, -1, phi_n)
 
 
 def print_keys():
