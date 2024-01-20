@@ -4,6 +4,10 @@ from Crypto.Util import number
 import math
 import os
 
+if not os.path.exists("keys"):
+    os.makedirs("keys")
+
+
 def generate_keys():
     global wkeyname
     wkeyname = input("What should the keys be named?\n")
@@ -26,8 +30,6 @@ def print_keys():
 
 
 def write_keys():
-    if not os.path.exists("keys"):
-        os.makedirs("keys")
     with open(f'keys/{wkeyname}-public.key', 'w') as file:
         file.write(f"{keymod},{publick}")
         file.close()
@@ -64,7 +66,7 @@ def decode():
     ckeyname = input("Key name? (prefix of '-private.key')\n")
     encodedfile = input(f"Enter message, or the location of the message with the prefix /.\n")
     if encodedfile.startswith("/"):
-        encodedfile = encodedfile.split("/",1)[1]
+        encodedfile = encodedfile.split("/", 1)[1]
         with open(f"{encodedfile}", "r") as f:
             message = f.read()
     else:
@@ -76,9 +78,10 @@ def decode():
     decoded = (int(decode_two)).to_bytes(math.ceil((int(decode_two)).bit_length() / 8), byteorder='big',
                                          signed=False).decode('utf-8')
     print(decoded)
-    willwrite = input("If you would like to write the decoded message to a file, enter a file name with the prefix #.\n")
+    willwrite = input(
+        "If you would like to write the decoded message to a file, enter a file name with the prefix #.\n")
     if willwrite.startswith('#'):
-        willwrite = willwrite.split("#",1)[1]
+        willwrite = willwrite.split("#", 1)[1]
         if not os.path.exists("decode"):
             os.makedirs("decode")
         with open(f'decode/{willwrite}.txt', 'w') as file:
